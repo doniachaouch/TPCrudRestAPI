@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @SpringBootApplication
 public class Chapitre5DbApplication {
 
@@ -28,6 +30,10 @@ public class Chapitre5DbApplication {
         user.setEmail("samar@gmail.com");
         user.setTel(26043567);
         userRepository.save(user);
+
+        List<User> users = userRepository.findAllByEmail("Samar");
+        System.out.println("Utilisateurs trouvés : " + users.size());
+        users.forEach(user1 -> System.out.println(user.getName()));
     }
 
 }

@@ -23,11 +23,23 @@ public class UserController {
     public  User createUser(@RequestBody User user){
         return userRepository.save(user);
     }
-    @GetMapping("{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RessourceNotFoundException("L'utilisateur n'existe pas avec l'id : " + id));
+        return ResponseEntity.ok(user);
+    }
+    @GetMapping("/name/{name}")
+    public ResponseEntity<User> getUserByName(@PathVariable String name ) {
+
+        User user = userRepository.findByName(name);
+        return ResponseEntity.ok(user);
+    }
+    @GetMapping("/nameemail")
+    public ResponseEntity<User> getUserByNameAndEmail(@RequestParam String name , @RequestParam String email ) {
+
+        User user = userRepository.findByNameAndEmail(name, email);
         return ResponseEntity.ok(user);
     }
 
